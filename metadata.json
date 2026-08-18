@@ -1,0 +1,6 @@
+{
+  "name": "Lumio - Operating System for Modern Work",
+  "description": "The operating system for modern creative teams. Empowering focus through intelligent brand management and creative AI orchestration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
