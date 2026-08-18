@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ onBookDemo, onGetStarted }) => {
               onClick={() => scrollToSection('brand-os')}
               className="text-xs font-medium text-neutral-600 hover:text-neutral-950 transition-colors duration-200 cursor-pointer"
             >
-              Platform
+              Stories
             </button>
             <button
               onClick={() => scrollToSection('lumio-studio')}
@@ -63,10 +63,10 @@ export const Header: React.FC<HeaderProps> = ({ onBookDemo, onGetStarted }) => {
               Updates
             </button>
             <button
-              onClick={() => scrollToSection('roadmap')}
+              onClick={() => scrollToSection('gallery')}
               className="text-xs font-medium text-neutral-600 hover:text-neutral-950 transition-colors duration-200 cursor-pointer flex items-center gap-1"
             >
-              <span>Roadmap</span>
+              <span>Gallery</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B2B]" />
             </button>
           </nav>
@@ -128,10 +128,10 @@ export const Header: React.FC<HeaderProps> = ({ onBookDemo, onGetStarted }) => {
               Dispatches & News
             </button>
             <button
-              onClick={() => scrollToSection('roadmap')}
+              onClick={() => scrollToSection('gallery')}
               className="text-left py-2.5 px-3 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 flex items-center justify-between"
             >
-              <span>Product Roadmap</span>
+              <span>Brand Asset Gallery</span>
               <span className="text-[10px] bg-[#FF4B2B] text-white px-2 py-0.5 rounded-full font-semibold">New</span>
             </button>
           </div>

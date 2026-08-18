@@ -57,3 +57,25 @@ export interface RoadmapMilestone {
   teamLead: string;
   tags: string[];
 }
+
+export interface VideoStory {
+  id: string;
+  author: {
+    name: string;
+    role: string;
+    company: string;
+    avatar: string;
+  };
+  quote: string;
+  fullQuote?: string;
+  videoDuration: string;
+  thumbnailUrl: string;
+  videoUrl?: string;
+  category: string;
+  metricBadge: string;
+  highlightStat: {
+    value: string;
+    label: string;
+  };
+  tags: string[];
+}

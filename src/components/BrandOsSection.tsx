@@ -1,166 +1,234 @@
 import React, { useState } from 'react';
-import { Folder, FileText, Image as ImageIcon, BarChart3, MoreHorizontal, Eye } from 'lucide-react';
-import { BRAND_FILES } from '../data/mockData';
-import { BrandFile } from '../types';
+import { 
+  Play, 
+  Quote, 
+  CheckCircle, 
+  ArrowUpRight, 
+  Sparkles, 
+  Filter, 
+  Clock, 
+  Award, 
+  TrendingUp, 
+  ShieldCheck,
+  ChevronRight
+} from 'lucide-react';
+import { VIDEO_STORIES } from '../data/mockData';
+import { VideoStory } from '../types';
 
 interface BrandOsSectionProps {
-  onSelectFile: (file: BrandFile) => void;
+  onSelectVideoStory?: (story: VideoStory) => void;
+  onBookDemo?: () => void;
 }
 
-export const BrandOsSection: React.FC<BrandOsSectionProps> = ({ onSelectFile }) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-  const [selectedFileId, setSelectedFileId] = useState<string>('file-1');
+const CATEGORIES = ['All', 'Brand Strategy', 'Design Systems', 'Marketing Ops', 'Creative Direction'] as const;
 
-  const selectedFile = BRAND_FILES.find((f) => f.id === selectedFileId) || BRAND_FILES[0];
+export const BrandOsSection: React.FC<BrandOsSectionProps> = ({ 
+  onSelectVideoStory,
+  onBookDemo 
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [activeStoryIndex, setActiveStoryIndex] = useState<number>(0);
 
-  const tabs = [
-    {
-      title: 'Centralized Knowledge',
-      description: 'Bring all your disparate assets, guidelines, and strategic documents into one cohesive, searchable environment.'
-    },
-    {
-      title: 'Contextual Intelligence',
-      description: 'Our neural agent understands the nuances of your brand, providing contextual recommendations and surfacing verified creative assets.'
-    },
-    {
-      title: 'Seamless Distribution',
-      description: 'Ensure every team member, agency partner, and global office has access to the latest, approved brand materials instantly.'
-    }
-  ];
-
-  const getIconComponent = (icon: string) => {
-    switch (icon) {
-      case 'folder':
-        return <Folder size={18} className="text-[#111111]" />;
-      case 'description':
-        return <FileText size={18} className="text-[#111111]" />;
-      case 'image':
-        return <ImageIcon size={18} className="text-[#111111]" />;
-      case 'analytics':
-        return <BarChart3 size={18} className="text-[#111111]" />;
-      default:
-        return <Folder size={18} className="text-[#111111]" />;
-    }
-  };
+  const filteredStories = selectedCategory === 'All'
+    ? VIDEO_STORIES
+    : VIDEO_STORIES.filter((s) => s.category === selectedCategory);
 
   return (
-    <section id="brand-os" className="py-[100px] md:py-[140px] px-6 md:px-12 max-w-[1728px] mx-auto bg-[#FAF9F6] border-t border-[#E5E4DE]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[100px] items-center">
-        
-        {/* Left Side: Bright OS File Explorer Window */}
-        <div className="bg-[#F3F2EB] rounded-[32px] md:rounded-[40px] p-6 sm:p-8 h-[640px] sm:h-[700px] flex flex-col justify-center items-center relative overflow-hidden border border-[#E5E4DE] shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
-          
-          {/* Main Card */}
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-[#E5E4DE] p-6 flex flex-col">
-            <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#E5E4DE]">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">Brand Knowledge Graph</span>
-                <span className="text-[10px] bg-neutral-100 text-neutral-800 border border-neutral-200 px-2 py-0.5 rounded-full font-semibold">Live Sync</span>
-              </div>
-              <MoreHorizontal size={18} className="text-neutral-400" />
-            </div>
+    <section id="brand-os" className="py-[120px] md:py-[160px] px-6 md:px-12 max-w-[1728px] mx-auto bg-[#FAF9F6] border-t border-[#E5E4DE] relative overflow-hidden">
+      
+      {/* Background Subtle Accent */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-b from-neutral-200/30 via-neutral-100/10 to-transparent blur-3xl pointer-events-none -z-10" />
 
-            {/* File List */}
-            <div className="space-y-3 mb-6">
-              {BRAND_FILES.map((file) => {
-                const isSelected = file.id === selectedFileId;
-                return (
-                  <div
-                    key={file.id}
-                    onClick={() => setSelectedFileId(file.id)}
-                    className={`flex items-center justify-between p-3.5 rounded-xl cursor-pointer transition-all duration-200 ${
-                      isSelected
-                        ? 'bg-[#FAF9F6] border border-[#111111]/50 shadow-xs'
-                        : 'bg-white hover:bg-[#FAF9F6] border border-[#E5E4DE]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-lg bg-[#F3F2EB] border border-[#E5E4DE] flex items-center justify-center shadow-xs">
-                        {getIconComponent(file.icon)}
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-neutral-900">{file.name}</span>
-                        <span className="text-xs text-neutral-500">{file.size} · {file.type}</span>
-                      </div>
-                    </div>
-                    {isSelected && (
-                      <span className="w-2 h-2 rounded-full bg-[#111111]" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Selected File Inspector Card */}
-            <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#E5E4DE]">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider">Asset Overview</span>
-                <button
-                  onClick={() => onSelectFile(selectedFile)}
-                  className="text-xs font-semibold text-neutral-900 hover:underline flex items-center gap-1 cursor-pointer"
-                >
-                  <Eye size={13} />
-                  <span>Inspect</span>
-                </button>
-              </div>
-              <p className="text-xs text-neutral-600 leading-relaxed mb-3 line-clamp-2">
-                {selectedFile.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {selectedFile.tags.map((tag, idx) => (
-                  <span key={idx} className="text-[11px] bg-white px-2.5 py-0.5 rounded-full border border-[#E5E4DE] text-neutral-600 font-medium">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-          </div>
+      {/* Section Header */}
+      <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E5E4DE] mb-4 shadow-xs">
+          <Award size={14} className="text-[#FF4B2B]" />
+          <span className="text-xs font-semibold text-neutral-700 tracking-wide">
+            Social Proof • Video Stories
+          </span>
         </div>
 
-        {/* Right Side: Features Content & Tab Switcher */}
-        <div className="flex flex-col justify-center h-full max-w-lg">
-          <span className="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">
-            Unified Knowledge Architecture
-          </span>
-          <h3 className="font-display text-[32px] md:text-[40px] mb-8 font-extrabold tracking-tight text-[#111111] leading-tight">
-            The intelligent foundation<br />for your brand<span className="text-[#FF4B2B]">.</span>
-          </h3>
+        <h2 className="font-display text-[36px] sm:text-[48px] md:text-[56px] font-extrabold tracking-tight text-neutral-950 leading-[1.06] mb-4">
+          Trusted by visionary leaders shaping global brands<span className="text-[#FF4B2B]">.</span>
+        </h2>
 
-          <div className="relative pl-8 border-l-[2px] border-[#E5E4DE] space-y-8">
-            {/* Dynamic Accent Indicator */}
+        <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal max-w-2xl mx-auto">
+          Hear directly from executive creative directors, enterprise CMOs, and design systems architects on how Lumio accelerates brand velocity.
+        </p>
+
+        {/* Filter Pills */}
+        <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-500 mr-2">
+            <Filter size={13} />
+            <span>Role:</span>
+          </div>
+          {CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-neutral-950 text-white shadow-xs'
+                    : 'bg-white text-neutral-600 hover:text-neutral-950 border border-[#E5E4DE] hover:border-neutral-400'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Video Story Cards Grid (Social Proof 12 Pattern) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 max-w-6xl mx-auto mb-16">
+        {filteredStories.map((story) => {
+          return (
             <div
-              className="absolute left-[-2px] w-[2px] bg-[#111111] shadow-xs transition-all duration-300"
-              style={{
-                height: '33.33%',
-                top: `${activeTab * 33.33}%`
-              }}
-            />
+              key={story.id}
+              onClick={() => onSelectVideoStory && onSelectVideoStory(story)}
+              className="group relative bg-white rounded-3xl border border-[#E5E4DE] hover:border-neutral-900 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col cursor-pointer"
+            >
+              {/* Video Thumbnail with Play Button Overlay */}
+              <div className="relative w-full aspect-16/10 sm:aspect-16/9 bg-neutral-900 overflow-hidden">
+                {/* Poster Image */}
+                <img
+                  src={story.thumbnailUrl}
+                  alt={story.author.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 group-hover:brightness-90"
+                />
 
-            {tabs.map((tab, idx) => {
-              const isActive = activeTab === idx;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setActiveTab(idx)}
-                  className={`cursor-pointer transition-opacity duration-300 ${
-                    isActive ? 'opacity-100' : 'opacity-40 hover:opacity-80'
-                  }`}
-                >
-                  <h4 className="font-display text-xl font-bold mb-2 text-[#111111] flex items-baseline gap-2">
-                    <span className="text-xs font-semibold text-neutral-400">0{idx + 1}.</span>
-                    {tab.title}
-                  </h4>
-                  <p className="text-sm text-neutral-600 leading-relaxed">
-                    {tab.description}
+                {/* Dark Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+                {/* Top Badges */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                  <span className="bg-black/60 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-white">
+                    {story.category}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <span className="bg-black/60 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs font-mono text-neutral-200 flex items-center gap-1.5">
+                      <Clock size={12} />
+                      {story.videoDuration}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Center Play Button Overlay with Pulse & Hover Dynamics */}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="relative flex items-center justify-center">
+                    {/* Ripple Aura on Hover */}
+                    <div className="absolute w-20 h-20 rounded-full bg-white/20 scale-90 group-hover:scale-125 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
+                    
+                    {/* Play Button */}
+                    <button 
+                      aria-label={`Play story by ${story.author.name}`}
+                      className="w-16 h-16 rounded-full bg-white/95 group-hover:bg-white text-neutral-950 flex items-center justify-center shadow-2xl transition-all duration-300 transform group-hover:scale-110 cursor-pointer border border-white/80"
+                    >
+                      <Play size={22} className="fill-neutral-950 text-neutral-950 translate-x-0.5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bottom Highlight Stat Pill on Video */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10">
+                  <span className="bg-[#FF4B2B] text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                    {story.metricBadge}
+                  </span>
+
+                  <span className="text-white/80 text-xs font-medium bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10 flex items-center gap-1">
+                    <span>Watch Story</span>
+                    <ArrowUpRight size={12} />
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Body: Member Quote & Author Bio */}
+              <div className="p-6 sm:p-8 flex flex-col justify-between flex-1 text-left bg-white">
+                {/* Member Quote */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Quote size={20} className="text-[#FF4B2B] opacity-60" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                      Executive Perspective
+                    </span>
+                  </div>
+                  <p className="text-base sm:text-lg font-medium text-neutral-900 leading-relaxed font-sans line-clamp-3">
+                    "{story.quote}"
                   </p>
                 </div>
-              );
-            })}
+
+                {/* Author Info & Verified Result Footer */}
+                <div className="pt-5 border-t border-[#F0EFEB] flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={story.author.avatar}
+                      alt={story.author.name}
+                      className="w-11 h-11 rounded-full object-cover border border-[#E5E4DE] shrink-0"
+                    />
+                    <div>
+                      <h4 className="text-sm font-bold text-neutral-950 flex items-center gap-1">
+                        <span>{story.author.name}</span>
+                        <CheckCircle size={14} className="text-blue-600 fill-blue-50" />
+                      </h4>
+                      <p className="text-xs text-neutral-500 font-normal">
+                        {story.author.role}, <span className="font-semibold text-neutral-700">{story.author.company}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Impact Mini Stat */}
+                  <div className="text-right shrink-0 hidden sm:block">
+                    <span className="text-xs font-bold text-neutral-900 block">
+                      {story.highlightStat.value}
+                    </span>
+                    <span className="text-[11px] text-neutral-500 font-medium">
+                      {story.highlightStat.label}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Enterprise Social Proof Banner */}
+      <div className="max-w-6xl mx-auto bg-[#F3F2EB] rounded-3xl p-6 sm:p-8 border border-[#E5E4DE] flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+          <div className="flex -space-x-3 overflow-hidden p-1">
+            {VIDEO_STORIES.map((s, i) => (
+              <img
+                key={i}
+                src={s.author.avatar}
+                alt={s.author.name}
+                className="inline-block h-10 w-10 rounded-full ring-2 ring-[#F3F2EB] object-cover"
+              />
+            ))}
+          </div>
+          <div>
+            <h4 className="text-sm font-bold text-neutral-900">
+              Join 350+ enterprise brand leaders worldwide
+            </h4>
+            <p className="text-xs text-neutral-600 font-normal">
+              Average 70% reduction in revision cycles and 99.8% multi-region brand compliance.
+            </p>
           </div>
         </div>
 
+        {onBookDemo && (
+          <button
+            onClick={onBookDemo}
+            className="w-full sm:w-auto bg-neutral-950 hover:bg-neutral-800 text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 shrink-0 shadow-sm cursor-pointer"
+          >
+            Request Enterprise Pilot
+          </button>
+        )}
       </div>
+
     </section>
   );
 };

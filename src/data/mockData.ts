@@ -161,3 +161,86 @@ export const SAMPLE_PROMPTS: GenerationPrompt[] = [
     channels: ['Keynote', 'Internal All-Hands', 'Executive Memo']
   }
 ];
+
+export const VIDEO_STORIES: import('../types').VideoStory[] = [
+  {
+    id: 'story-1',
+    author: {
+      name: 'Elena Rostova',
+      role: 'VP of Global Brand',
+      company: 'Northline Commerce',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'
+    },
+    quote: 'Lumio eliminated months of brand fragmentation across 14 international markets. Our teams now ship verified campaign assets in days instead of weeks.',
+    fullQuote: 'Before Lumio, managing creative consistency across 14 international markets was our biggest operational bottleneck. Our regional teams were constantly working with outdated logos, diverging color palettes, and off-brand copy. With Lumio’s active neural governance, our entire global organization shares a singular living source of truth. We accelerated time-to-market by 74% while reducing agency revision fees by over a million dollars annually.',
+    videoDuration: '2:14',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop',
+    category: 'Brand Strategy',
+    metricBadge: '74% Faster Launches',
+    highlightStat: {
+      value: '74%',
+      label: 'Faster Campaign Rollout'
+    },
+    tags: ['Global Scale', 'Governance', 'Enterprise']
+  },
+  {
+    id: 'story-2',
+    author: {
+      name: 'Marcus Vance',
+      role: 'Head of Creative Tech',
+      company: 'Veloce Labs',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop'
+    },
+    quote: 'The neural knowledge graph understands our exact color harmony and typography curves. It’s like having our entire design system alive and interactive.',
+    fullQuote: 'We build digital products for fast-moving startups and Fortune 500 enterprises. Lumio Studio allows our creative technologists to test multi-channel design tokens in real time. The moment a designer generates or adapts an asset, Lumio automatically verifies contrast ratios, spatial grids, and typography scales with zero manual intervention.',
+    videoDuration: '1:48',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop',
+    category: 'Design Systems',
+    metricBadge: '100% Token Compliance',
+    highlightStat: {
+      value: '10x',
+      label: 'Asset Scaling Speed'
+    },
+    tags: ['Figma Sync', 'DesignOps', 'Typography']
+  },
+  {
+    id: 'story-3',
+    author: {
+      name: 'Sophia Al-Mansoor',
+      role: 'Chief Marketing Officer',
+      company: 'Arcus Enterprise',
+      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop'
+    },
+    quote: 'We deployed Lumio across 850 marketers worldwide. Rogue marketing copy dropped to absolute zero within thirty days of onboarding.',
+    fullQuote: 'Empowering hundreds of decentralized sales reps and regional field marketers without diluting brand prestige was our biggest challenge. Lumio’s contextual voice synthesizer and guardrails enable every rep to generate bespoke pitch decks and social assets while staying strictly inside our legal and stylistic boundaries.',
+    videoDuration: '3:05',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop',
+    category: 'Marketing Ops',
+    metricBadge: 'Zero Rogue Copy',
+    highlightStat: {
+      value: '$1.2M',
+      label: 'Annual Cost Savings'
+    },
+    tags: ['Sales Enablement', 'Tone AI', 'Risk Mitigation']
+  },
+  {
+    id: 'story-4',
+    author: {
+      name: 'Claire Beauchamp',
+      role: 'Creative Director',
+      company: 'Maison Studio',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop'
+    },
+    quote: 'Our designers spend their energy on real creative concepts rather than tedious manual formatting, export checklists, and resizing.',
+    fullQuote: 'Creative teams get burned out when 70% of their workday is spent generating 45 banner iterations for different ad sizes. Lumio automates all the mechanical resizing and localized typography while preserving artistic nuance and art direction.',
+    videoDuration: '1:55',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+    category: 'Creative Direction',
+    metricBadge: '30+ hrs saved / wk',
+    highlightStat: {
+      value: '85%',
+      label: 'Creator Satisfaction Lift'
+    },
+    tags: ['Automation', 'Creative Flow', 'Asset Studio']
+  }
+];

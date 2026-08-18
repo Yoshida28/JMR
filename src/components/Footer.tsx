@@ -84,7 +84,7 @@ export const Footer: React.FC = () => {
             <ul className="flex flex-col gap-3 text-sm">
               <li><a className="text-neutral-400 hover:text-white transition-colors" href="#brand-os">Knowledge Graph</a></li>
               <li><a className="text-neutral-400 hover:text-white transition-colors" href="#lumio-studio">Lumio Studio</a></li>
-              <li><a className="text-neutral-400 hover:text-white transition-colors" href="#roadmap">Product Roadmap</a></li>
+              <li><a className="text-neutral-400 hover:text-white transition-colors" href="#gallery">Brand Asset Gallery</a></li>
               <li><a className="text-neutral-400 hover:text-white transition-colors" href="#team-cases">Enterprise Workflows</a></li>
               <li><a className="text-neutral-400 hover:text-white transition-colors" href="#brand-os">Creative Cloud Sync</a></li>
               <li><a className="text-neutral-400 hover:text-white transition-colors" href="#updates">Security Whitepaper</a></li>

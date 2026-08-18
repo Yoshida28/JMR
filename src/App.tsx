@@ -9,20 +9,22 @@ import { LumioStudioSection } from './components/LumioStudioSection';
 import { TeamUseCasesSection } from './components/TeamUseCasesSection';
 import { TestimonialSection } from './components/TestimonialSection';
 import { LatestUpdatesSection } from './components/LatestUpdatesSection';
-import { ProductRoadmapSection } from './components/ProductRoadmapSection';
+import { BrandGallerySection } from './components/BrandGallerySection';
 import { CtaSection } from './components/CtaSection';
 import { Footer } from './components/Footer';
 import { DemoModal } from './components/DemoModal';
 import { ArticleModal } from './components/ArticleModal';
 import { FileDetailModal } from './components/FileDetailModal';
 import { UseCaseModal } from './components/UseCaseModal';
-import { ArticleUpdate, BrandFile, TeamUseCase } from './types';
+import { VideoStoryModal } from './components/VideoStoryModal';
+import { ArticleUpdate, BrandFile, TeamUseCase, VideoStory } from './types';
 
 export default function App() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<ArticleUpdate | null>(null);
   const [selectedFile, setSelectedFile] = useState<BrandFile | null>(null);
   const [selectedUseCase, setSelectedUseCase] = useState<TeamUseCase | null>(null);
+  const [selectedVideoStory, setSelectedVideoStory] = useState<VideoStory | null>(null);
 
   const scrollToStudio = () => {
     const el = document.getElementById('lumio-studio');
@@ -55,9 +57,10 @@ export default function App() {
         {/* 4. Manifesto Section */}
         <ManifestoSection />
 
-        {/* 5. Brand OS Section */}
+        {/* 5. Social Proof 12: Video Stories Section */}
         <BrandOsSection
-          onSelectFile={(file) => setSelectedFile(file)}
+          onSelectVideoStory={(story) => setSelectedVideoStory(story)}
+          onBookDemo={() => setDemoModalOpen(true)}
         />
 
         {/* 6. Lumio Studio Interactive Section */}
@@ -82,8 +85,8 @@ export default function App() {
           onGetStarted={() => setDemoModalOpen(true)}
         />
 
-        {/* 11. Product Roadmap Section */}
-        <ProductRoadmapSection
+        {/* 11. Living Brand Asset Slider (Image Auto Slider) */}
+        <BrandGallerySection
           onBookDemo={() => setDemoModalOpen(true)}
         />
       </main>
@@ -111,6 +114,15 @@ export default function App() {
         useCase={selectedUseCase}
         onClose={() => setSelectedUseCase(null)}
         onBookDemo={() => setDemoModalOpen(true)}
+      />
+
+      <VideoStoryModal
+        story={selectedVideoStory}
+        onClose={() => setSelectedVideoStory(null)}
+        onBookDemo={() => {
+          setSelectedVideoStory(null);
+          setDemoModalOpen(true);
+        }}
       />
     </div>
   );
